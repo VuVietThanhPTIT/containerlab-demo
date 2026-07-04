@@ -20,6 +20,7 @@ Repository này chứa các bài lab mạng containerized với:
 | **apricot2026** | FRR | OSPF, IS-IS, BGP, Route-Maps | Bài lab mạng APRICOT 2026 PCIO với thiết kế multi-AS | ✅ Hoạt động |
 | **iproute2** | Linux | iproute2, netlink | Cơ bản về networking Linux | ✅ Hoàn thành |
 | **iproute2-tc** | Linux | Traffic Control (TBF, netem) | Shaping traffic nâng cao và QoS | ✅ Hoàn thành |
+| **[bai-tap-ve-nha](./bai-tap-ve-nha/README.md)** | FRR, Linux | OSPF, BGP, Automation, Sys Ops | Series bài tập về nhà hàng tuần cho học viên Việt Nam (Network Thực Chiến) | 🟢 Đang diễn ra |
 
 ## 🚀 Bắt Đầu
 

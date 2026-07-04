@@ -129,6 +129,8 @@ Group 1 (AS10)  <---> Nhà cung cấp trung chuyển (AS121) <---> Group 2 (AS20
 2. **Cấu hình IS-IS cho Group 2 (AS20)**: Triển khai IS-IS làm IGP cho cả IPv4 và IPv6, thực hiện gán NET và tối ưu hóa metric.
 3. **Thiết lập iBGP với Route Reflector**: Cấu hình iBGP nội bộ cho từng group, sử dụng router core làm Route Reflector để tối ưu hóa bảng định tuyến.
 4. **Kết nối eBGP và Lọc Route**: Thiết lập peering với Transit Provider (AS121), cấu hình Prefix-list và Route-map để kiểm soát việc quảng bá/nhận route.
+5. **Cấu hình RPKI để xác thực định tuyến**: Thiết lập kết nối từ các Peering, Border, và Access Router tới máy chủ RPKI Validator (SRV1/SRV2) để tăng cường bảo mật định tuyến.
+6. **Cấu hình Remote Trigger Black Hole (RTBH)**: Thiết lập kỹ thuật RTBH nội bộ (Local RTBH) để giảm thiểu tấn công DDoS bằng cách định tuyến các IP bị tấn công vào giao diện Null0.
 
 ---
 
@@ -770,6 +772,144 @@ ping 100.68.2.1 (loopback từ group khác)
 traceroute 100.68.1.2
 traceroute 100.68.2.1
 ```
+
+---
+
+## Pha 6: Cấu Hình RPKI (Resource Public Key Infrastructure)
+
+### Mục Tiêu
+
+Cấu hình các router (ngoại trừ Core Router) kết nối đến RPKI validator cache được cài đặt trên máy chủ SRV1 (Group 1) và SRV2 (Group 2). Điều này giúp router nhận thông tin VRP (Validated ROA Payload) để xác thực tính hợp lệ của các tuyến đường BGP (Route Origin Validation).
+
+Hầu hết các nhà khai thác mạng chỉ cấu hình RPKI trên các Border/Peering router để đưa ra quyết định từ chối/chấp nhận ở biên mạng, không cần cấu hình trên Core router vì route đã được xác thực trước khi phân phối vào trong.
+
+### Bước 6.1: Cấu Hình Kết Nối Đến Validator Cache
+
+Trong mạng sử dụng FRRouting, chúng ta cấu hình block `rpki` để kết nối qua TCP đến máy chủ cache (cổng mặc định 3323) với chu kỳ làm mới (polling) được khuyến nghị theo RFC8210 là 3600 giây.
+
+**Trên các Router Group 1 (Router-B1, Router-P1, Router-A1):**
+Kết nối đến máy chủ SRV1 (`100.68.1.30`):
+
+```
+rpki
+  rpki polling_period 3600
+  rpki cache tcp 100.68.1.30 3323 preference 1
+  exit
+!
+```
+
+**Trên các Router Group 2 (Router-B2, Router-P2, Router-A2):**
+Kết nối đến máy chủ SRV2 (`100.68.2.30`):
+
+```
+rpki
+  rpki polling_period 3600
+  rpki cache tcp 100.68.2.30 3323 preference 1
+  exit
+!
+```
+
+### Bước 6.2: Kiểm Tra Trạng Thái Kết Nối RPKI
+
+Sau khi cấu hình, kiểm tra xem router đã kết nối đến máy chủ cache thành công chưa:
+
+```
+show rpki cache-server
+```
+
+**Kết quả kỳ vọng:** Trạng thái kết nối (Connection state) phải là `ESTABLISHED`.
+
+### Bước 6.3: Kiểm Tra Bảng RPKI và BGP
+
+Bạn có thể xem danh sách các VRPs (tiền tố IP và Origin AS) đã nhận được từ cache:
+
+```
+show rpki prefix
+```
+
+Để xem trạng thái xác thực RPKI của các tuyến đường trong bảng định tuyến:
+
+```
+show ip bgp
+```
+*(Trong bảng BGP, hệ thống sẽ đánh dấu các route theo trạng thái RPKI: Valid, Invalid, hoặc Notfound)*
+
+---
+
+## Pha 7: Cấu Hình Remote Trigger Black Hole (RTBH)
+
+### Mục Tiêu
+
+Triển khai kỹ thuật RTBH nội bộ (Local RTBH) để chặn các cuộc tấn công DDoS nhắm vào một địa chỉ IP cụ thể trong mạng. Thay vì sử dụng một Trigger Router chuyên dụng, chúng ta sẽ dùng Access Router (Router-A1/Router-A2) làm điểm kích hoạt.
+
+### Bước 7.1: Chuẩn Bị Định Tuyến Discard Trên Toàn Mạng
+
+Trên **tất cả các router trong AS** (Core, Border, Peering, Access), tạo một static route trỏ địa chỉ discard tiêu chuẩn (192.0.2.1 cho IPv4 và 100::1 cho IPv6) vào cổng `Null0` (giao diện hủy bỏ thầm lặng).
+
+```
+ip route 192.0.2.1/32 Null0
+ipv6 route 100::1/128 Null0
+```
+
+### Bước 7.2: Cấu Hình Route-map Trên Router Kích Hoạt (Router-A1 & Router-A2)
+
+Tạo route-map để nhận diện các static route có gắn `tag 666`, đổi next-hop thành địa chỉ discard, tăng local-preference lên cao nhất và gắn community `65535:666` cùng `no-export`.
+
+**Trên Router-A1 và Router-A2:**
+
+```
+route-map RTBH-TRIGGERv4 permit 10
+  match tag 666
+  set ip next-hop 192.0.2.1
+  set local-preference 1000
+  set origin igp
+  set community 65535:666 no-export
+!
+route-map RTBH-TRIGGERv6 permit 10
+  match tag 666
+  set ipv6 next-hop 100::1
+  set local-preference 1000
+  set origin igp
+  set community 65535:666 no-export
+!
+```
+
+### Bước 7.3: Phân Phối (Redistribute) Static Route Vào BGP
+
+Tiếp theo, cấu hình BGP trên Router-A1/A2 để quảng bá các static route này thông qua route-map vừa tạo.
+
+**Trên Router-A1 (AS10):**
+```
+router bgp 10
+  address-family ipv4 unicast
+    redistribute static route-map RTBH-TRIGGERv4
+  exit-address-family
+  !
+  address-family ipv6 unicast
+    redistribute static route-map RTBH-TRIGGERv6
+  exit-address-family
+!
+```
+
+**Trên Router-A2 (AS20):**
+Thay thế `router bgp 10` bằng `router bgp 20` và thực hiện tương tự.
+
+### Bước 7.4: Kích Hoạt Chặn IP (Kiểm Tra)
+
+Giả sử IP `8.8.8.8` đang bị tấn công DDoS, bạn muốn chặn traffic đến IP này từ mọi nơi trong AS. Trên Access Router (Router-A1 hoặc A2), thêm một static route tới `8.8.8.8` và gắn `tag 666`:
+
+```
+ip route 8.8.8.8/32 Null0 tag 666
+```
+
+**Kiểm tra trên Core hoặc Border Router:**
+
+```
+show ip bgp 8.8.8.8
+show ip route 8.8.8.8
+```
+
+**Kết quả kỳ vọng:** Tuyến đường `8.8.8.8` sẽ được học qua iBGP với next-hop là `192.0.2.1`. Do `192.0.2.1` trỏ vào `Null0` ở mọi router, mọi traffic đến `8.8.8.8` trên toàn mạng sẽ bị drop ngay lập tức.
 
 ---
 

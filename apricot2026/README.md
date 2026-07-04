@@ -125,6 +125,8 @@ Group 1 (AS10)  <---> Transit Provider (AS121) <---> Group 2 (AS20)
 2. **Configure IS-IS for Group 2 (AS20)**: Deploy IS-IS as the IGP for both IPv4 and IPv6, implementing NET assignments and metric optimization.
 3. **Set up iBGP with Route Reflector**: Configure internal BGP (iBGP) for each group, using core routers as Route Reflectors to optimize routing tables.
 4. **eBGP Connectivity and Route Filtering**: Establish peering with the Transit Provider (AS121), configuring Prefix-lists and Route-maps to control route advertisement and reception.
+5. **Configure RPKI for Route Validation**: Set up RPKI connections from Peering, Border, and Access Routers to the RPKI Validator servers (SRV1/SRV2) to enhance routing security.
+6. **Configure Remote Trigger Black Hole (RTBH)**: Implement internal RTBH (Local RTBH) to mitigate DDoS attacks by routing traffic destined for a victim IP into the Null0 interface.
 
 ---
 
@@ -766,6 +768,144 @@ ping 100.68.2.1 (loopback from different group)
 traceroute 100.68.1.2
 traceroute 100.68.2.1
 ```
+
+---
+
+## Phase 6: Configure RPKI (Resource Public Key Infrastructure)
+
+### Objective
+
+Configure routers (except the Core Router) to connect to the RPKI validator cache installed on SRV1 (Group 1) and SRV2 (Group 2). This enables routers to receive VRPs (Validated ROA Payloads) for Route Origin Validation of BGP routes.
+
+Most network operators configure RPKI on their Border and Peering routers to make drop/accept decisions at the edge. It's not necessary on the Core router since prefixes are already validated before being distributed internally.
+
+### Step 6.1: Configure Connection to Validator Cache
+
+In our FRRouting setup, we use the `rpki` block to connect via TCP to the cache server (default port 3323) with the RFC8210 recommended polling period of 3600 seconds.
+
+**On Group 1 Routers (Router-B1, Router-P1, Router-A1):**
+Connect to the SRV1 server (`100.68.1.30`):
+
+```
+rpki
+  rpki polling_period 3600
+  rpki cache tcp 100.68.1.30 3323 preference 1
+  exit
+!
+```
+
+**On Group 2 Routers (Router-B2, Router-P2, Router-A2):**
+Connect to the SRV2 server (`100.68.2.30`):
+
+```
+rpki
+  rpki polling_period 3600
+  rpki cache tcp 100.68.2.30 3323 preference 1
+  exit
+!
+```
+
+### Step 6.2: Verify RPKI Connection Status
+
+After configuration, verify that the router has successfully connected to the cache server:
+
+```
+show rpki cache-server
+```
+
+**Expected output:** The connection state should be `ESTABLISHED`.
+
+### Step 6.3: Check RPKI Table and BGP Status
+
+You can view the list of VRPs (IP prefixes and Origin AS) received from the cache:
+
+```
+show rpki prefix
+```
+
+To see the RPKI validation state of routes in the routing table:
+
+```
+show ip bgp
+```
+*(The system will mark the RPKI state of the routes in the BGP table: Valid, Invalid, or Notfound)*
+
+---
+
+## Phase 7: Configure Remote Trigger Black Hole (RTBH)
+
+### Objective
+
+Implement Local RTBH within the AS to block DDoS attacks targeting a specific IP address. Instead of using a dedicated Trigger Router, we will use the Access Router (Router-A1/Router-A2) as the trigger point.
+
+### Step 7.1: Prepare Discard Routing Network-Wide
+
+On **all routers in the AS** (Core, Border, Peering, Access), create a static route pointing the standard discard address (192.0.2.1 for IPv4 and 100::1 for IPv6) to the `Null0` interface (silent discard).
+
+```
+ip route 192.0.2.1/32 Null0
+ipv6 route 100::1/128 Null0
+```
+
+### Step 7.2: Configure Route-map on the Trigger Router (Router-A1 & Router-A2)
+
+Create a route-map to identify static routes tagged with `666`, change their next-hop to the discard address, set a high local-preference, and attach the `65535:666` community along with `no-export`.
+
+**On Router-A1 and Router-A2:**
+
+```
+route-map RTBH-TRIGGERv4 permit 10
+  match tag 666
+  set ip next-hop 192.0.2.1
+  set local-preference 1000
+  set origin igp
+  set community 65535:666 no-export
+!
+route-map RTBH-TRIGGERv6 permit 10
+  match tag 666
+  set ipv6 next-hop 100::1
+  set local-preference 1000
+  set origin igp
+  set community 65535:666 no-export
+!
+```
+
+### Step 7.3: Redistribute Static Routes into BGP
+
+Configure BGP on Router-A1/A2 to redistribute these static routes using the route-map.
+
+**On Router-A1 (AS10):**
+```
+router bgp 10
+  address-family ipv4 unicast
+    redistribute static route-map RTBH-TRIGGERv4
+  exit-address-family
+  !
+  address-family ipv6 unicast
+    redistribute static route-map RTBH-TRIGGERv6
+  exit-address-family
+!
+```
+
+**On Router-A2 (AS20):**
+Replace `router bgp 10` with `router bgp 20` and do the same.
+
+### Step 7.4: Trigger IP Blocking (Testing)
+
+Suppose the IP `8.8.8.8` is under a DDoS attack, and you want to block traffic to this IP from everywhere in your AS. On the Access Router (Router-A1 or A2), add a static route to `8.8.8.8` and attach `tag 666`:
+
+```
+ip route 8.8.8.8/32 Null0 tag 666
+```
+
+**Verify on the Core or Border Router:**
+
+```
+show ip bgp 8.8.8.8
+show ip route 8.8.8.8
+```
+
+**Expected Result:** The route to `8.8.8.8` will be learned via iBGP with the next-hop `192.0.2.1`. Since `192.0.2.1` points to `Null0` on all routers, any traffic heading to `8.8.8.8` anywhere in the network will be instantly dropped.
 
 ---
 
