@@ -1,0 +1,25 @@
+name: netconsole
+
+mgmt:
+  network: clab-mgmt
+  ipv4-subnet: 172.20.20.0/24
+
+topology:
+  nodes:
+    arista1:
+      kind: ceos
+      image: ceos:4.36.1F
+      mgmt-ipv4: 172.20.20.11
+    arista2:
+      kind: ceos
+      image: ceos:4.36.1F
+      mgmt-ipv4: 172.20.20.12
+    arista3:
+      kind: ceos
+      image: ceos:4.36.1F
+      mgmt-ipv4: 172.20.20.13
+
+  links:
+    - endpoints: ["arista1:eth1", "arista2:eth1"]
+    - endpoints: ["arista1:eth2", "arista3:eth1"]
+    - endpoints: ["arista2:eth2", "arista3:eth2"]
