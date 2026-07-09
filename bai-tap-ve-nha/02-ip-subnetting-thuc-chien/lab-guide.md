@@ -37,9 +37,7 @@ Khối địa chỉ được cấp: **172.20.4.0/22**.
 - VLSM: sắp xếp yêu cầu từ lớn đến nhỏ trước khi chia sẽ dễ tính hơn.
 - `topology/subnet-lab.clab.yml` cố tình **không gán sẵn IP** — đây là phần bạn phải tự làm.
 
-## Cách nộp bài
-Đăng bảng subnet đã chia + ảnh output `ip addr`/ping vào Facebook group/comment bài viết tuần này.
-**Hạn nộp:** 1 tuần kể từ ngày đăng bài.
-
+## Thảo luận và hỏi đáp
+Bài tập này tự làm và tự xác minh kết quả. Nếu có thắc mắc hoặc cần trao đổi thêm, các bạn hãy đăng bài thảo luận trên group Facebook [Network Thực Chiến](https://www.facebook.com/profile.php?id=61591373979991).
 ## Bài tiếp theo
 → 03-static-route-multi-hop

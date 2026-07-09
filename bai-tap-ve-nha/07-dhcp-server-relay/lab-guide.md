@@ -63,9 +63,7 @@ Trong production, server/printer thường cần IP cố định qua DHCP reserv
 2. Thêm `dhcp-host=<mac>,10.0.1.50` vào `dnsmasq.conf`.
 3. Restart dnsmasq, renew DHCP trên `host-a` (`udhcpc -i eth1`) — phải nhận đúng `10.0.1.50`.
 
-## Cách nộp bài
-Đăng nội dung `dnsmasq.conf` + output verify vào Facebook group/comment bài viết tuần này.
-**Hạn nộp:** 1 tuần kể từ ngày đăng bài.
-
+## Thảo luận và hỏi đáp
+Bài tập này tự làm và tự xác minh kết quả. Nếu có thắc mắc hoặc cần trao đổi thêm, các bạn hãy đăng bài thảo luận trên group Facebook [Network Thực Chiến](https://www.facebook.com/profile.php?id=61591373979991).
 ## Bài tiếp theo
 → [08-nat-masquerade-linux](../08-nat-masquerade-linux/lab-guide.md): NAT/Masquerade trên Linux.

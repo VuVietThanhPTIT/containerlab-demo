@@ -43,9 +43,7 @@ Không có — đây là bài đầu tiên trong series.
 - Nếu server có ít RAM (2GB - 4GB), swap đặc biệt quan trọng — không có swap thì OOM killer sẽ tắt container ngẫu nhiên khi chạy lab.
 - Không cần cài containerlab ở bài này — để dành cho Bài 01.
 
-## Cách nộp bài
-Đăng ảnh chụp output 5 lệnh ở trên vào Facebook group/comment bài viết tuần này.
-**Hạn nộp:** 1 tuần kể từ ngày đăng bài.
-
+## Thảo luận và hỏi đáp
+Bài tập này tự làm và tự xác minh kết quả. Nếu có thắc mắc hoặc cần trao đổi thêm, các bạn hãy đăng bài thảo luận trên group Facebook [Network Thực Chiến](https://www.facebook.com/profile.php?id=61591373979991).
 ## Bài tiếp theo
 → [01-cai-dat-containerlab](../01-cai-dat-containerlab/lab-guide.md): cài containerlab và deploy lab đầu tiên.

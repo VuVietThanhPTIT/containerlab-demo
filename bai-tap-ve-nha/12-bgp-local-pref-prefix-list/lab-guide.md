@@ -74,9 +74,7 @@ Mặc định, BGP chọn đường theo AS-PATH ngắn nhất — nhưng cả 2
 - Route-map **phải có ít nhất 1 permit cuối** (permit 20) để route không khớp prefix-list vẫn được chấp nhận — nếu thiếu, tất cả route khác sẽ bị implicit deny!
 - `clear ip bgp ... soft in` chỉ re-process route inbound mà không reset session — an toàn hơn `clear ip bgp *`.
 
-## Cách nộp bài
-Đăng prefix-list + route-map + output verify vào Facebook group/comment bài viết tuần này.
-**Hạn nộp:** 1 tuần kể từ ngày đăng bài.
-
+## Thảo luận và hỏi đáp
+Bài tập này tự làm và tự xác minh kết quả. Nếu có thắc mắc hoặc cần trao đổi thêm, các bạn hãy đăng bài thảo luận trên group Facebook [Network Thực Chiến](https://www.facebook.com/profile.php?id=61591373979991).
 ## Bài tiếp theo
 → [13-pbr-dual-wan](../13-pbr-dual-wan/lab-guide.md): Policy-Based Routing dual-WAN.

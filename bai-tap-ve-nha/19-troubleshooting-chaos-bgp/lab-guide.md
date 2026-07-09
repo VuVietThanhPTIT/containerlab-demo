@@ -47,9 +47,7 @@ Giống hệt Bài 10. Tất cả 3 router đã cấu hình `router bgp`, eBGP s
 6. Verify: `srv1` ping thông `srv3`, `show ip bgp` trên cả 3 router thấy đủ route.
 7. Ghi lại: quá trình điều tra, nguyên nhân gốc, và cách sửa.
 
-## Cách nộp bài
-Đăng lại **quá trình điều tra** (không chỉ đáp án cuối) + lệnh đã dùng để sửa vào Facebook group/comment bài viết tuần này.
-**Hạn nộp:** 1 tuần kể từ ngày đăng bài.
-
+## Thảo luận và hỏi đáp
+Bài tập này tự làm và tự xác minh kết quả. Nếu có thắc mắc hoặc cần trao đổi thêm, các bạn hãy đăng bài thảo luận trên group Facebook [Network Thực Chiến](https://www.facebook.com/profile.php?id=61591373979991).
 ## Bài tiếp theo
 → 20-wireguard-vpn-site-to-site (Sắp ra mắt)

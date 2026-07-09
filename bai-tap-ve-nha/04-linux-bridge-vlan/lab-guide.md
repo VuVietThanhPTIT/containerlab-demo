@@ -41,9 +41,7 @@ Chi tiết xem [`topology/vlan-lab.clab.yml`](./topology/vlan-lab.clab.yml).
 - Nếu thiếu lệnh `bridge`, cài thêm gói `iproute2` trong container `SW`.
 - Nếu `host-a` ping `host-b` không qua được, kiểm tra tag VLAN trên cổng trunk (`eth1` của SW) đã có đủ cả 2 VID chưa.
 
-## Cách nộp bài
-Đăng output các lệnh verify ở trên vào Facebook group/comment bài viết tuần này.
-**Hạn nộp:** 1 tuần kể từ ngày đăng bài.
-
+## Thảo luận và hỏi đáp
+Bài tập này tự làm và tự xác minh kết quả. Nếu có thắc mắc hoặc cần trao đổi thêm, các bạn hãy đăng bài thảo luận trên group Facebook [Network Thực Chiến](https://www.facebook.com/profile.php?id=61591373979991).
 ## Bài tiếp theo
 → [05-stp-rstp-chong-loop](../05-stp-rstp-chong-loop/lab-guide.md): STP/RSTP chống loop Layer 2.

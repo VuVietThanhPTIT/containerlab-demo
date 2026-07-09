@@ -29,9 +29,7 @@ Topology giống hệt Bài 04 (`srv1 -- R1 -- R2 -- R3 -- R4 -- srv2`, OSPF are
 5. Verify: `srv1` ping thông `srv2`, tất cả router liên quan lên `Full` neighbor.
 6. Ghi lại: quá trình điều tra (đã kiểm tra những gì, loại trừ những gì), nguyên nhân gốc tìm được, và cách đã sửa.
 
-## Cách nộp bài
-Đăng lại **quá trình điều tra** (không chỉ đáp án cuối) + lệnh đã dùng để sửa vào Facebook group/comment bài viết tuần này — đây là bài học về phương pháp, không phải chỉ về kết quả.
-**Hạn nộp:** 1 tuần kể từ ngày đăng bài.
-
+## Thảo luận và hỏi đáp
+Bài tập này tự làm và tự xác minh kết quả. Nếu có thắc mắc hoặc cần trao đổi thêm, các bạn hãy đăng bài thảo luận trên group Facebook [Network Thực Chiến](https://www.facebook.com/profile.php?id=61591373979991).
 ## Bài tiếp theo
 → [19-troubleshooting-chaos-bgp](../19-troubleshooting-chaos-bgp/lab-guide.md): Troubleshooting chaos lab — BGP.

@@ -33,9 +33,7 @@ Chi tiết node/IP xem [`topology/bgp-lab.clab.yml`](./topology/bgp-lab.clab.yml
 - Nếu neighbor không lên Established, kiểm tra `remote-as` đúng chiều chưa và 2 IP neighbor có ping được nhau không.
 - **Quan trọng:** FRR 10.x mặc định bật `bgp ebgp-requires-policy` (theo RFC 8212) — session eBGP vẫn lên **Established** bình thường nhưng sẽ **không trao đổi route nào** nếu thiếu route-map/policy. Thêm `no bgp ebgp-requires-policy` trong `router bgp` để tắt yêu cầu này (bài học tuần này chưa học route-map, để dành cho tuần 06).
 
-## Cách nộp bài
-Đăng output các lệnh verify ở trên vào Facebook group/comment bài viết tuần này.
-**Hạn nộp:** 1 tuần kể từ ngày đăng bài.
-
+## Thảo luận và hỏi đáp
+Bài tập này tự làm và tự xác minh kết quả. Nếu có thắc mắc hoặc cần trao đổi thêm, các bạn hãy đăng bài thảo luận trên group Facebook [Network Thực Chiến](https://www.facebook.com/profile.php?id=61591373979991).
 ## Bài tiếp theo
 → 06-bgp-route-map-policy

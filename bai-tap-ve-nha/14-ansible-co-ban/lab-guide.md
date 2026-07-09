@@ -44,9 +44,7 @@ Trong production, dùng module `command`/`shell` là **anti-pattern** vì không
 2. Dùng module `ansible.builtin.template` để render ra file config, sau đó copy vào container bằng `docker cp`.
 3. **Mở rộng:** Tìm hiểu thêm các Ansible network modules chuyên dụng (`ansible.netcommon.cli_config`, `community.network.frr`) — trong production, đây là cách đúng để quản lý cấu hình router thay vì `docker exec` + `vtysh -c`.
 
-## Cách nộp bài
-Đăng nội dung playbook đã hoàn thiện + output chạy vào Facebook group/comment bài viết tuần này.
-**Hạn nộp:** 1 tuần kể từ ngày đăng bài.
-
+## Thảo luận và hỏi đáp
+Bài tập này tự làm và tự xác minh kết quả. Nếu có thắc mắc hoặc cần trao đổi thêm, các bạn hãy đăng bài thảo luận trên group Facebook [Network Thực Chiến](https://www.facebook.com/profile.php?id=61591373979991).
 ## Bài tiếp theo
 → 09-python-parsing-show-command

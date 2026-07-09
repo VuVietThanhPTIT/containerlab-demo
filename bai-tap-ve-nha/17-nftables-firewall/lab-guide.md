@@ -40,9 +40,7 @@ host-a (10.20.1.0/24) --- gw (nftables, ip_forward=1) --- host-b (10.20.2.0/24)
 - Thêm từ khoá `counter` vào mỗi rule để `nft list ruleset` hiện được số packet/byte đã khớp — dễ debug hơn.
 - Nếu `nc -l` chỉ nhận 1 kết nối rồi thoát, mở lại listener trước mỗi lần test là được (không cần daemon phức tạp cho bài này).
 
-## Cách nộp bài
-Đăng nội dung `ruleset.nft` đã hoàn thiện + toàn bộ output verify vào Facebook group/comment bài viết tuần này.
-**Hạn nộp:** 1 tuần kể từ ngày đăng bài.
-
+## Thảo luận và hỏi đáp
+Bài tập này tự làm và tự xác minh kết quả. Nếu có thắc mắc hoặc cần trao đổi thêm, các bạn hãy đăng bài thảo luận trên group Facebook [Network Thực Chiến](https://www.facebook.com/profile.php?id=61591373979991).
 ## Bài tiếp theo
 → 13-troubleshooting-chaos-lab

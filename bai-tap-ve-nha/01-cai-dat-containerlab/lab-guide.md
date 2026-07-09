@@ -35,9 +35,7 @@ host1 (192.168.100.1/24) --- eth1<->eth1 --- host2 (192.168.100.2/24)
 ## Gợi ý
 - Nếu ping không thông, kiểm tra lại `exec` trong `hello-clab.yml` đã gán đúng IP cho từng interface chưa, và interface có ở trạng thái `up` không.
 
-## Cách nộp bài
-Đăng ảnh/kết quả lệnh `containerlab version`, `clab inspect`, và kết quả ping vào Facebook group/comment bài viết tuần này.
-**Hạn nộp:** 1 tuần kể từ ngày đăng bài.
-
+## Thảo luận và hỏi đáp
+Bài tập này tự làm và tự xác minh kết quả. Nếu có thắc mắc hoặc cần trao đổi thêm, các bạn hãy đăng bài thảo luận trên group Facebook [Network Thực Chiến](https://www.facebook.com/profile.php?id=61591373979991).
 ## Bài tiếp theo
 → 02-ip-subnetting-thuc-chien (sắp ra mắt)

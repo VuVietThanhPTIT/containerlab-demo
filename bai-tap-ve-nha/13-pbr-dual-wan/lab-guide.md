@@ -76,9 +76,7 @@ Trong production, khi ISP-A mất kết nối, traffic sales cần tự chuyển
 3. Viết 1 script đơn giản kiểm tra `ping -c 1 10.0.100.2`, nếu fail → `ip rule del from 10.0.1.0/24 table 100` để traffic rơi về main table (qua ISP-B).
 4. **Mở rộng:** Trong thực tế, dùng `keepalived` hoặc BFD để phát hiện link down nhanh hơn.
 
-## Cách nộp bài
-Đăng output `ip rule show` + `traceroute` 2 chiều vào Facebook group/comment bài viết tuần này.
-**Hạn nộp:** 1 tuần kể từ ngày đăng bài.
-
+## Thảo luận và hỏi đáp
+Bài tập này tự làm và tự xác minh kết quả. Nếu có thắc mắc hoặc cần trao đổi thêm, các bạn hãy đăng bài thảo luận trên group Facebook [Network Thực Chiến](https://www.facebook.com/profile.php?id=61591373979991).
 ## Bài tiếp theo
 → [14-ansible-co-ban](../14-ansible-co-ban/lab-guide.md): Ansible cơ bản.

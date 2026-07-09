@@ -31,9 +31,7 @@ host-1 (10.0.1.0/24) -- r1 -- r2 -- r3 -- r4 -- host-2 (10.0.2.0/24)
 - `subprocess.run([...], capture_output=True, text=True).stdout` trả về chuỗi JSON — dùng `json.loads()` để parse thành list các dict.
 - Route có `dst` là `"default"` (không phải subnet cụ thể) — nhớ bỏ qua khi so khớp, không phải lỗi.
 
-## Cách nộp bài
-Đăng nội dung script đã hoàn thiện + 2 lần output (bình thường và sau khi xoá route) vào Facebook group/comment bài viết tuần này.
-**Hạn nộp:** 1 tuần kể từ ngày đăng bài.
-
+## Thảo luận và hỏi đáp
+Bài tập này tự làm và tự xác minh kết quả. Nếu có thắc mắc hoặc cần trao đổi thêm, các bạn hãy đăng bài thảo luận trên group Facebook [Network Thực Chiến](https://www.facebook.com/profile.php?id=61591373979991).
 ## Bài tiếp theo
 → [16-git-workflow-network-config](../16-git-workflow-network-config/lab-guide.md): Git workflow cho network config.

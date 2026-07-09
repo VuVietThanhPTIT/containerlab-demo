@@ -52,9 +52,7 @@ graph TD
 - Bridge ID = priority (mặc định 32768) + MAC address. Muốn ép 1 switch làm root, giảm priority: `ip link set br0 type bridge priority 4096`.
 - Nếu muốn xem chi tiết hơn: `bridge -d link show` hiện port state (forwarding/learning/blocking).
 
-## Cách nộp bài
-Đăng output `bridge link show` + `root_id` trên mỗi switch + kết quả ping/failover vào Facebook group/comment bài viết tuần này.
-**Hạn nộp:** 1 tuần kể từ ngày đăng bài.
-
+## Thảo luận và hỏi đáp
+Bài tập này tự làm và tự xác minh kết quả. Nếu có thắc mắc hoặc cần trao đổi thêm, các bạn hãy đăng bài thảo luận trên group Facebook [Network Thực Chiến](https://www.facebook.com/profile.php?id=61591373979991).
 ## Bài tiếp theo
 → [06-vrrp-ecmp-gateway-ha](../06-vrrp-ecmp-gateway-ha/lab-guide.md): VRRP + ECMP — Gateway HA.

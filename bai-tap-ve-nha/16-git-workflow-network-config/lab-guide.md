@@ -68,9 +68,7 @@ Tất cả interface và OSPF đã cấu hình hoàn chỉnh trong `configs/`. L
 - Nếu FRR không reload config mới sau `docker cp`, cần restart FRR trong container: `docker exec <router> /usr/lib/frr/frrinit.sh restart`.
 - Tên container phụ thuộc vào `prefix` trong topology — bài này dùng `prefix: ""` nên tên container = tên node.
 
-## Cách nộp bài
-Đăng nội dung `deploy.sh` + `git log` + output verify vào Facebook group/comment bài viết tuần này.
-**Hạn nộp:** 1 tuần kể từ ngày đăng bài.
-
+## Thảo luận và hỏi đáp
+Bài tập này tự làm và tự xác minh kết quả. Nếu có thắc mắc hoặc cần trao đổi thêm, các bạn hãy đăng bài thảo luận trên group Facebook [Network Thực Chiến](https://www.facebook.com/profile.php?id=61591373979991).
 ## Bài tiếp theo
 → [17-nftables-firewall](../17-nftables-firewall/lab-guide.md): nftables firewall cơ bản.
