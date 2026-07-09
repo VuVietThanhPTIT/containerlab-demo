@@ -34,4 +34,4 @@ Topology giống hệt Bài 04 (`srv1 -- R1 -- R2 -- R3 -- R4 -- srv2`, OSPF are
 **Hạn nộp:** 1 tuần kể từ ngày đăng bài.
 
 ## Bài tiếp theo
-→ cập nhật sau (Arc 5 sẽ có thêm chaos lab khác — BGP, firewall...)
+→ [19-troubleshooting-chaos-bgp](../19-troubleshooting-chaos-bgp/lab-guide.md): Troubleshooting chaos lab — BGP.

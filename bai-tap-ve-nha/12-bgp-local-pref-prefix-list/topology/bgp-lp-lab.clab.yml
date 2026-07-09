@@ -1,0 +1,52 @@
+name: bgp-lp-lab
+
+topology:
+  groups:
+    routers:
+      kind: linux
+      image: quay.io/frrouting/frr:10.5.1
+    hosts:
+      kind: linux
+      image: wbitt/network-multitool:3.22.2
+
+  nodes:
+    srv-hq:
+      group: hosts
+      exec:
+        - ip link set eth1 up
+        - ip addr add 192.168.100.10/24 dev eth1
+        - ip route replace default via 192.168.100.1 dev eth1
+    r-hq:
+      group: routers
+      binds:
+        - ../configs/r-hq/daemons:/etc/frr/daemons
+        - ../configs/r-hq/frr.conf:/etc/frr/frr.conf
+    r-isp-a:
+      group: routers
+      binds:
+        - ../configs/r-isp-a/daemons:/etc/frr/daemons
+        - ../configs/r-isp-a/frr.conf:/etc/frr/frr.conf
+    r-isp-b:
+      group: routers
+      binds:
+        - ../configs/r-isp-b/daemons:/etc/frr/daemons
+        - ../configs/r-isp-b/frr.conf:/etc/frr/frr.conf
+    r-dc:
+      group: routers
+      binds:
+        - ../configs/r-dc/daemons:/etc/frr/daemons
+        - ../configs/r-dc/frr.conf:/etc/frr/frr.conf
+    srv-dc:
+      group: hosts
+      exec:
+        - ip link set eth1 up
+        - ip addr add 192.168.200.10/24 dev eth1
+        - ip route replace default via 192.168.200.1 dev eth1
+
+  links:
+    - endpoints: ["srv-hq:eth1", "r-hq:eth1"]
+    - endpoints: ["r-hq:eth2", "r-isp-a:eth1"]
+    - endpoints: ["r-hq:eth3", "r-isp-b:eth1"]
+    - endpoints: ["r-isp-a:eth2", "r-dc:eth1"]
+    - endpoints: ["r-isp-b:eth2", "r-dc:eth2"]
+    - endpoints: ["r-dc:eth3", "srv-dc:eth1"]

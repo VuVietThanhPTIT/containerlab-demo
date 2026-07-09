@@ -1,0 +1,60 @@
+name: pbr-lab
+
+topology:
+  nodes:
+    host-sales:
+      kind: linux
+      image: wbitt/network-multitool:3.22.2
+      exec:
+        - ip addr add 10.0.1.10/24 dev eth1
+        - ip route replace default via 10.0.1.1 dev eth1
+    host-tech:
+      kind: linux
+      image: wbitt/network-multitool:3.22.2
+      exec:
+        - ip addr add 10.0.2.10/24 dev eth1
+        - ip route replace default via 10.0.2.1 dev eth1
+    r1:
+      kind: linux
+      image: wbitt/network-multitool:3.22.2
+      exec:
+        - sysctl -w net.ipv4.ip_forward=1
+        - ip addr add 10.0.1.1/24 dev eth1
+        - ip addr add 10.0.2.1/24 dev eth2
+        - ip addr add 10.0.100.1/30 dev eth3
+        - ip addr add 10.0.101.1/30 dev eth4
+        # Default route qua ISP-A (ban đầu cả 2 phòng đi cùng đường)
+        - ip route replace default via 10.0.100.2 dev eth3
+    isp-a:
+      kind: linux
+      image: wbitt/network-multitool:3.22.2
+      exec:
+        - sysctl -w net.ipv4.ip_forward=1
+        - ip addr add 10.0.100.2/30 dev eth1
+        - ip addr add 10.0.200.1/24 dev eth2
+        # Static route ngược về 2 LAN qua R1
+        - ip route add 10.0.1.0/24 via 10.0.100.1 dev eth1
+        - ip route add 10.0.2.0/24 via 10.0.100.1 dev eth1
+    isp-b:
+      kind: linux
+      image: wbitt/network-multitool:3.22.2
+      exec:
+        - sysctl -w net.ipv4.ip_forward=1
+        - ip addr add 10.0.101.2/30 dev eth1
+        - ip addr add 10.0.200.2/24 dev eth2
+        # Static route ngược về 2 LAN qua R1
+        - ip route add 10.0.1.0/24 via 10.0.101.1 dev eth1
+        - ip route add 10.0.2.0/24 via 10.0.101.1 dev eth1
+    server:
+      kind: linux
+      image: wbitt/network-multitool:3.22.2
+      exec:
+        - ip addr add 10.0.200.10/24 dev eth1
+
+  links:
+    - endpoints: ["host-sales:eth1", "r1:eth1"]
+    - endpoints: ["host-tech:eth1", "r1:eth2"]
+    - endpoints: ["r1:eth3", "isp-a:eth1"]
+    - endpoints: ["r1:eth4", "isp-b:eth1"]
+    - endpoints: ["isp-a:eth2", "server:eth1"]
+    - endpoints: ["isp-b:eth2", "server:eth2"]

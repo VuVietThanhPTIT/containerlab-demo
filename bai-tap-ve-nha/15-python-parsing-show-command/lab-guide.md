@@ -36,4 +36,4 @@ host-1 (10.0.1.0/24) -- r1 -- r2 -- r3 -- r4 -- host-2 (10.0.2.0/24)
 **Hạn nộp:** 1 tuần kể từ ngày đăng bài.
 
 ## Bài tiếp theo
-→ 10-systemd-journald
+→ [16-git-workflow-network-config](../16-git-workflow-network-config/lab-guide.md): Git workflow cho network config.

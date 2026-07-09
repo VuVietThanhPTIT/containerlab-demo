@@ -47,4 +47,4 @@ AS-path prepend chỉ ảnh hưởng **outbound** (cách AS lân cận thấy ro
 **Hạn nộp:** 1 tuần kể từ ngày đăng bài.
 
 ## Bài tiếp theo
-→ 07-linux-bridge-vlan
+→ [12-bgp-local-pref-prefix-list](../12-bgp-local-pref-prefix-list/lab-guide.md): BGP Local Preference + prefix-list.

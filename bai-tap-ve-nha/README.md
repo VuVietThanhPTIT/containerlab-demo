@@ -55,8 +55,8 @@ Toàn bộ nội dung **mã nguồn mở** (xem [LICENSE](../LICENSE)) — mọi
 | [09](./09-ospf-multi-area/lab-guide.md) | OSPF multi-area (chia vùng, ABR, route summarization) | 🟢 Đang mở | — |
 | [10](./10-bgp-ebgp-co-ban/lab-guide.md) | BGP eBGP cơ bản (peering giữa 2 AS) | 🟢 Đang mở | — |
 | [11](./11-bgp-route-map-policy/lab-guide.md) | BGP route-map & policy (lọc/ưu tiên route) | 🟢 Đang mở | — |
-| 12 | BGP Local Preference + prefix-list (inbound traffic engineering) | ⏳ Sắp ra mắt | — |
-| 13 | Policy-Based Routing — dual-WAN (route theo source IP) | ⏳ Sắp ra mắt | — |
+| [12](./12-bgp-local-pref-prefix-list/lab-guide.md) | BGP Local Preference + prefix-list (inbound traffic engineering) | 🟢 Đang mở (Mới) | — |
+| [13](./13-pbr-dual-wan/lab-guide.md) | Policy-Based Routing — dual-WAN (route theo source IP) | 🟢 Đang mở (Mới) | — |
 
 ---
 
@@ -68,7 +68,7 @@ Toàn bộ nội dung **mã nguồn mở** (xem [LICENSE](../LICENSE)) — mọi
 |:---:|:---|:---|:---|
 | [14](./14-ansible-co-ban/lab-guide.md) | Ansible cơ bản (push config nhiều router cùng lúc) | 🟢 Đang mở | — |
 | [15](./15-python-parsing-show-command/lab-guide.md) | Python parsing (audit routing table từ show command) | 🟢 Đang mở | — |
-| 16 | Git workflow cho network config (branch/merge/deploy) | ⏳ Sắp ra mắt | — |
+| [16](./16-git-workflow-network-config/lab-guide.md) | Git workflow cho network config (branch/merge/deploy) | 🟢 Đang mở (Mới) | — |
 
 ---
 
@@ -89,7 +89,7 @@ Toàn bộ nội dung **mã nguồn mở** (xem [LICENSE](../LICENSE)) — mọi
 | Mã bài | Tên bài lab | Trạng thái | Video |
 |:---:|:---|:---|:---|
 | [18](./18-troubleshooting-chaos-lab/lab-guide.md) | Troubleshooting chaos lab — OSPF (cấy lỗi area mismatch) | 🟢 Đang mở | — |
-| 19 | Troubleshooting chaos lab — BGP (cấy lỗi prefix-list) | ⏳ Sắp ra mắt | — |
+| [19](./19-troubleshooting-chaos-bgp/lab-guide.md) | Troubleshooting chaos lab — BGP (cấy lỗi prefix-list) | 🟢 Đang mở (Mới) | — |
 
 ---
 
