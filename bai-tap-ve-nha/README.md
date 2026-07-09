@@ -103,6 +103,19 @@ Toàn bộ nội dung **mã nguồn mở** (xem [LICENSE](../LICENSE)) — mọi
 
 ---
 
+### Arc 7 — Triển khai mạng doanh nghiệp (dự án xuyên suốt)
+
+> Dự án 4 tuần: đóng vai network engineer triển khai từng lớp mạng cho **công ty NTC** — campus LAN → routing core + gateway HA → WAN chi nhánh → internet edge. Khác các Arc trước (mỗi bài 1 kỹ thuật riêng), Arc này **tích hợp** tất cả vào cùng một mạng: mỗi bài xây thêm 1 lớp, đề bài viết dạng yêu cầu nghiệp vụ từ CTO, kết thúc Arc là 1 topology doanh nghiệp hoàn chỉnh. Mỗi bài vẫn tự chứa (lớp tuần trước cấu hình sẵn) — có thể nhảy vào bài bất kỳ.
+
+| Mã bài | Tên bài lab | Trạng thái | Video |
+|:---:|:---|:---|:---|
+| 21 | Dựng campus LAN cho trụ sở (VLAN access–distribution) | ⏳ Sắp ra mắt | — |
+| 22 | Routing core OSPF + gateway HA (VRRP) | ⏳ Sắp ra mắt | — |
+| 23 | Kết nối chi nhánh qua WAN (eBGP) | ⏳ Sắp ra mắt | — |
+| 24 | Internet edge: NAT + firewall nftables | ⏳ Sắp ra mắt | — |
+
+---
+
 Các bài tiếp theo sẽ được bổ sung dần theo tiến độ và phản hồi từ học viên.
 
 ## Các Arc trong series
@@ -114,6 +127,7 @@ Các bài tiếp theo sẽ được bổ sung dần theo tiến độ và phản
 - **Arc 4 — Security & Observability:** nftables firewall (filter traffic giữa subnet).
 - **Arc 5 — Troubleshooting chaos lab:** Lab cấy lỗi sẵn — OSPF (area mismatch) và BGP (prefix-list typo).
 - **Arc 6 — Advanced Security & VPN:** WireGuard VPN site-to-site.
+- **Arc 7 — Triển khai mạng doanh nghiệp:** Dự án 4 tuần xây mạng công ty NTC từng lớp — campus VLAN, OSPF core + VRRP, eBGP WAN chi nhánh, NAT/nftables internet edge.
 
 ## Lưu ý quan trọng khi học & thực hành
 
