@@ -18,7 +18,7 @@ graph TD
     host-a[host-a<br>10.0.1.10/24] -- eth1 --- eth1(sw1)
     host-b[host-b<br>10.0.1.20/24] -- eth1 --- eth3(sw2)
     
-    subgraph Ring switch (Layer 2)
+    subgraph ring_switch ["Ring switch (Layer 2)"]
         sw1 -- eth2 --- eth1(sw2)
         sw2 -- eth2 --- eth1(sw3)
         sw3 -- eth2 --- eth3(sw1)

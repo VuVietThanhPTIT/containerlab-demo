@@ -16,7 +16,7 @@ graph TD
     host-a[host-a<br>DHCP Client] -- eth1 --- eth1(r1:eth1<br>10.0.1.1/24)
     host-b[host-b<br>DHCP Client] -- eth1 --- eth2(r1:eth2<br>10.0.2.1/24)
     
-    subgraph DHCP Server & Router
+    subgraph dhcp_server ["DHCP Server & Router"]
         r1[r1<br>dnsmasq]
     end
     
