@@ -28,7 +28,8 @@ Khối địa chỉ được cấp: **172.20.4.0/22**.
    - Kỹ thuật (host-b): 20 host
    - Vận hành (host-c): 10 host
 
-     ```Giải
+     ```
+     Giải
    /22 -> còn 32 - 22 = 2 mũ 10 host phân chia làm 3 subnet con
      50 + 2  host thì cần tối thiẻu 2 mũ 6 = 64 - 2 = 62 > 52 -> 6 bit cho host còn 32 - 6 cho phần net prefix / 26
      20 + 2 -> 2 mũ 5 prefix / 27
