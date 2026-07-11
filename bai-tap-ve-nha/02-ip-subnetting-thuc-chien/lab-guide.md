@@ -27,6 +27,13 @@ Khối địa chỉ được cấp: **172.20.4.0/22**.
    - Kinh doanh (host-a): 50 host
    - Kỹ thuật (host-b): 20 host
    - Vận hành (host-c): 10 host
+/// Giải
+/22 -> còn 32 - 22 = 2 mũ 10 host phân chia làm 3 subnet con
+  50 + 2  host thì cần tối thiẻu 2 mũ 6 = 64 - 2 = 62 > 52 -> 6 bit cho host còn 32 - 6 cho phần net prefix / 26
+  20 + 2 -> 2 mũ 5 prefix / 27
+    16 > 12  -> prefix 28 
+
+////
 2. Deploy topology, sau đó tự gán IP cho từng interface bằng `docker exec ... ip addr add <ip>/<prefix> dev eth1` theo bảng bạn vừa tính (gw có 3 interface, mỗi host có 1 interface).
 3. Bật `ip_forward` trên `gw` (đã có sẵn trong topology qua `exec`, tự kiểm tra lại bằng `sysctl net.ipv4.ip_forward`).
 4. Gán default route cho từng host trỏ về IP của `gw` trên cùng subnet. **Lưu ý:** container đã có sẵn 1 default route qua `eth0` (mgmt network của containerlab) nên `ip route add default ...` sẽ báo lỗi `File exists` — dùng `ip route replace default via <ip-gw> dev eth1` thay vì `add`.
