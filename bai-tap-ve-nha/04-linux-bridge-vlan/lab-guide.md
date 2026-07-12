@@ -4,6 +4,7 @@
 
 ## Mục tiêu
 - Dịch khái niệm VLAN access port / trunk port (quen thuộc từ switch Cisco) sang Linux bridge (`bridge vlan`, VLAN-aware bridge).
+- acess port gắn với 1 lan duy nhất , frame đi vào ra đều untaged , switch sẽ gán vlan id nội bộ cho frame 
 - Cấu hình router-on-a-stick trên Linux bằng sub-interface 802.1Q (`ip link ... type vlan`).
 - Xác nhận 2 VLAN tách biệt ở lớp 2, chỉ liên lạc được qua router.
 
